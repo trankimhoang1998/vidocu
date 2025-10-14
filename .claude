@@ -1,0 +1,129 @@
+# Vidocu Project Context
+
+## Project Overview
+Vidocu là nền tảng quản lý và xử lý tài liệu video được xây dựng trên Laravel Framework 12.34.0.
+
+## Technology Stack
+- **Framework**: Laravel 12.34.0
+- **PHP**: 8.3.8
+- **Database**: MySQL 8.0
+- **Web Server**: Nginx (Alpine)
+- **Containerization**: Docker & Docker Compose
+- **Package Manager**: Composer
+
+## Development Environment
+
+### Docker Services
+- **vidocu_app**: PHP-FPM application container
+- **vidocu_web**: Nginx web server (port 8092)
+- **vidocu_db**: MySQL database (port 3309)
+- **vidocu_phpmyadmin**: phpMyAdmin interface (port 8093)
+
+### Access Points
+- Web Application: http://localhost:8092
+- phpMyAdmin: http://localhost:8093
+- MySQL: localhost:3309
+
+### Database Configuration
+- Database: `laravel`
+- Username: `laravel`
+- Password: `laravel`
+- Root Password: `root`
+
+## Project Structure
+```
+vidocu/
+├── app/                # Application logic (Models, Controllers, Services)
+├── bootstrap/          # Framework bootstrap files
+├── config/             # Configuration files
+├── database/           # Migrations, seeders, factories
+├── docker/             # Docker configuration (ignored in git)
+├── public/             # Web root, assets
+├── resources/          # Views, raw assets (CSS, JS)
+├── routes/             # Route definitions (web, api)
+├── storage/            # Logs, cache, file uploads
+├── tests/              # PHPUnit tests
+└── vendor/             # Composer dependencies
+```
+
+## Git Configuration
+Files ignored in git:
+- docker-compose.yml
+- /docker
+- .env
+- /vendor
+- /node_modules
+
+## Common Commands
+
+### Docker Operations
+```bash
+docker-compose up -d              # Start containers
+docker-compose down               # Stop containers
+docker-compose logs -f            # View logs
+docker-compose exec app bash     # Enter app container
+```
+
+### Laravel Artisan
+```bash
+docker-compose exec app php artisan migrate        # Run migrations
+docker-compose exec app php artisan cache:clear    # Clear cache
+docker-compose exec app php artisan config:clear   # Clear config
+docker-compose exec app php artisan make:model     # Create model
+docker-compose exec app php artisan make:controller # Create controller
+```
+
+### Composer
+```bash
+docker-compose exec app composer install    # Install dependencies
+docker-compose exec app composer update     # Update dependencies
+docker-compose exec app composer dump-autoload # Regenerate autoload
+```
+
+## Development Guidelines
+
+### Code Style
+- Follow PSR-12 coding standards
+- Use Laravel best practices
+- Keep controllers thin, use service classes for business logic
+- Write meaningful commit messages
+
+### Database
+- Always create migrations for database changes
+- Use seeders for test data
+- Follow Laravel naming conventions for tables and columns
+
+### Security
+- Never commit .env file
+- Never commit docker configuration files
+- Keep dependencies updated
+- Validate all user inputs
+- Use Laravel's built-in security features
+
+## Troubleshooting
+
+### Port Conflicts
+If ports are already in use, modify in docker-compose.yml:
+- Web: 8092
+- MySQL: 3309
+- phpMyAdmin: 8093
+
+### Permission Issues
+```bash
+docker-compose exec app chown -R www-data:www-data /var/www/html/storage
+docker-compose exec app chmod -R 775 /var/www/html/storage
+```
+
+### Container Rebuild
+```bash
+docker-compose down
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+## Notes for Claude
+- Project uses Docker for consistent development environment
+- Database is MySQL, not SQLite (changed from default Laravel)
+- Custom ports to avoid conflicts with other projects
+- Docker files are not tracked in git for flexibility across environments
+- Always use docker-compose exec app for Laravel commands
