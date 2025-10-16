@@ -18,6 +18,14 @@
                     <span class="menu-text">Người dùng</span>
                 </a>
             </li>
+            <li class="admin-menu-item {{ request()->routeIs('admin.categories') ? 'active' : '' }}">
+                <a href="{{ route('admin.categories') }}">
+                    <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <span class="menu-text">Danh mục</span>
+                </a>
+            </li>
             @endif
         </ul>
     </nav>
