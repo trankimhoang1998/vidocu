@@ -1,0 +1,151 @@
+// Admin Header
+.admin-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 $spacing-lg;
+    height: 60px;
+    flex-shrink: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+}
+
+.admin-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.admin-logo h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: $primary-color;
+}
+
+.admin-header-right {
+    display: flex;
+    align-items: center;
+}
+
+// User Menu
+.user-menu {
+    position: relative;
+}
+
+.user-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.user-name {
+    font-weight: 500;
+    color: $dark-color;
+    font-size: 0.9rem;
+}
+
+.user-menu-arrow {
+    width: 16px;
+    height: 16px;
+    color: #6b7280;
+    transition: transform 0.2s ease;
+}
+
+.user-menu:hover .user-menu-arrow {
+    transform: rotate(180deg);
+}
+
+.user-menu:hover .user-menu-trigger {
+    background-color: #f3f4f6;
+}
+
+// User Menu Dropdown
+.user-menu-dropdown {
+    position: absolute;
+    top: calc(100% + 0.2rem);
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.user-menu:hover .user-menu-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.user-menu-form {
+    margin: 0;
+}
+
+.user-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+    color: $dark-color;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+
+    &:first-child {
+        border-radius: 8px 8px 0 0;
+    }
+
+    &:last-child {
+        border-radius: 0 0 8px 8px;
+    }
+
+    &:hover {
+        background-color: #f3f4f6;
+        color: $primary-color;
+
+        .user-menu-icon {
+            color: $primary-color;
+        }
+    }
+}
+
+.user-menu-icon {
+    width: 18px;
+    height: 18px;
+    color: #6b7280;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+}

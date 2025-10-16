@@ -1,0 +1,41 @@
+// Badge Component - Reusable badge styles
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 12px;
+    white-space: nowrap;
+
+    &.badge-primary {
+        background-color: rgba($primary-color, 0.1);
+        color: $primary-color;
+    }
+
+    &.badge-secondary {
+        background-color: #e9ecef;
+        color: #6c757d;
+    }
+
+    &.badge-success {
+        background-color: rgba(#28a745, 0.1);
+        color: #28a745;
+    }
+
+    &.badge-danger {
+        background-color: rgba(#dc3545, 0.1);
+        color: #dc3545;
+    }
+
+    &.badge-warning {
+        background-color: rgba(#ffc107, 0.1);
+        color: #ff8c00;
+    }
+
+    &.badge-info {
+        background-color: rgba(#17a2b8, 0.1);
+        color: #17a2b8;
+    }
+}

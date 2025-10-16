@@ -1,0 +1,39 @@
+// Variables
+@import 'variables';
+
+// Base styles
+@import 'base';
+
+// ===== AUTH SECTION =====
+@import 'auth/auth';
+
+// ===== USER SECTION =====
+// User Components
+@import 'user/components/buttons';
+@import 'user/components/forms';
+@import 'user/components/cards';
+
+// User Layout
+@import 'user/layout/header';
+@import 'user/layout/footer';
+@import 'user/layout/sidebar';
+
+// User Pages
+@import 'user/pages/home';
+
+// ===== ADMIN SECTION =====
+// Admin Components
+@import 'admin/components/buttons';
+@import 'admin/components/forms';
+@import 'admin/components/cards';
+@import 'admin/components/badge';
+@import 'admin/components/action-buttons';
+@import 'admin/components/modal';
+@import 'admin/components/data-table';
+@import 'admin/components/pagination';
+@import 'admin/components/filters';
+
+// Admin Layout
+@import 'admin/layout/layout';
+@import 'admin/layout/header';
+@import 'admin/layout/sidebar';

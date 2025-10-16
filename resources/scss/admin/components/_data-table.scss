@@ -1,0 +1,91 @@
+// Data Table Component - Reusable table styles for admin
+
+.data-table-wrapper {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+
+    thead {
+        background-color: #e9ecef;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    tbody {
+        background-color: #ffffff;
+    }
+}
+
+.data-table-th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    white-space: nowrap;
+
+    &.data-table-th-actions {
+        text-align: center;
+        width: 120px;
+    }
+}
+
+.data-table-row {
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #f8f9fa;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.data-table-td {
+    padding: 1rem;
+    color: #495057;
+    vertical-align: middle;
+
+    &.data-table-td-actions {
+        text-align: center;
+    }
+
+    &.data-table-empty {
+        text-align: center;
+        padding: 2rem;
+        color: #6c757d;
+        font-style: italic;
+    }
+}
+
+.data-table-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .data-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .data-table {
+        min-width: 600px;
+    }
+
+    .data-table-th,
+    .data-table-td {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+}

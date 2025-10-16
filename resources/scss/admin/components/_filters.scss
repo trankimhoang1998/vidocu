@@ -1,0 +1,42 @@
+// Filter Container (reuse .form-card style)
+.filter-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+// Filter Form Layout
+.filter-form {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+// Filter Group (reuse .form-group concept)
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+
+    &.filter-group-auto {
+        flex: 0 0 auto;
+    }
+}
+
+// Filter Actions
+.filter-actions {
+    display: flex;
+    gap: 0.5rem;
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}

@@ -1,0 +1,238 @@
+// Modal Component - Reusable modal styles
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    &.modal-show {
+        opacity: 1;
+        visibility: visible;
+
+        .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease;
+
+    &.modal-sm {
+        max-width: 400px;
+    }
+
+    &.modal-lg {
+        max-width: 800px;
+    }
+
+    &.modal-xl {
+        max-width: 1200px;
+    }
+}
+
+.modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &.modal-header-danger {
+        background-color: rgba(#dc3545, 0.05);
+        border-bottom-color: rgba(#dc3545, 0.2);
+    }
+
+    &.modal-header-warning {
+        background-color: rgba(#ffc107, 0.05);
+        border-bottom-color: rgba(#ffc107, 0.2);
+    }
+
+    &.modal-header-success {
+        background-color: rgba(#28a745, 0.05);
+        border-bottom-color: rgba(#28a745, 0.2);
+    }
+
+    &.modal-header-info {
+        background-color: rgba(#17a2b8, 0.05);
+        border-bottom-color: rgba(#17a2b8, 0.2);
+    }
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal-title-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    &.modal-icon-danger {
+        color: #dc3545;
+    }
+
+    &.modal-icon-warning {
+        color: #ffc107;
+    }
+
+    &.modal-icon-success {
+        color: #28a745;
+    }
+
+    &.modal-icon-info {
+        color: #17a2b8;
+    }
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    color: #6c757d;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        color: #2d3748;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.modal-body {
+    padding: 1.5rem;
+    color: #4a5568;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+// Modal buttons
+.modal-btn {
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    &.modal-btn-primary {
+        background-color: $primary-color;
+        color: #ffffff;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+
+    &.modal-btn-danger {
+        background-color: #dc3545;
+        color: #ffffff;
+
+        &:hover {
+            background-color: darken(#dc3545, 10%);
+        }
+    }
+
+    &.modal-btn-success {
+        background-color: #28a745;
+        color: #ffffff;
+
+        &:hover {
+            background-color: darken(#28a745, 10%);
+        }
+    }
+
+    &.modal-btn-secondary {
+        background-color: #e9ecef;
+        color: #4a5568;
+
+        &:hover {
+            background-color: darken(#e9ecef, 5%);
+        }
+    }
+
+    &.modal-btn-outline {
+        background-color: transparent;
+        color: #4a5568;
+        border: 1px solid #dee2e6;
+
+        &:hover {
+            background-color: #f8f9fa;
+        }
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 95%;
+        margin: 1rem;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1rem;
+    }
+
+    .modal-footer {
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+
+        .modal-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}
