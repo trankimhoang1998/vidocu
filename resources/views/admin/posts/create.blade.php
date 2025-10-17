@@ -209,6 +209,7 @@
     </div>
 </form>
 
+<script src="{{ asset('vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 <script>
 // Auto generate slug from title
 document.getElementById('title').addEventListener('input', function(e) {
@@ -542,6 +543,32 @@ container.addEventListener('drop', function(e) {
         const input = document.getElementById('thumbnail');
         input.files = files;
         previewImage(input);
+    }
+});
+
+// Initialize TinyMCE
+tinymce.init({
+    selector: '#content',
+    license_key: 'gpl',
+    height: 500,
+    menubar: true,
+    plugins: [
+        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+        'insertdatetime', 'media', 'table', 'help', 'wordcount'
+    ],
+    toolbar: 'undo redo | blocks | bold italic underline strikethrough | ' +
+             'alignleft aligncenter alignright alignjustify | ' +
+             'bullist numlist outdent indent | forecolor backcolor | ' +
+             'removeformat | link image media table | code fullscreen preview',
+    content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 14px }',
+    language: 'vi',
+    branding: false,
+    promotion: false,
+    setup: function(editor) {
+        editor.on('change', function() {
+            editor.save();
+        });
     }
 });
 </script>
