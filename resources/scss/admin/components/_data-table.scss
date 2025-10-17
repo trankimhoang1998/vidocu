@@ -85,6 +85,20 @@
     display: block;
 }
 
+// Post Tags in Table
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 200px;
+}
+
+.text-muted {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    font-style: italic;
+}
+
 // Responsive
 @media (max-width: 768px) {
     .data-table-wrapper {

@@ -105,6 +105,35 @@
         </div>
 
         <div class="form-group form-grid-full">
+            <label for="tags" class="form-label">
+                Tags <span class="required">*</span>
+            </label>
+            <div class="tag-input-wrapper">
+                <div class="tag-input-container" id="tagInputContainer">
+                    <div class="tags-display" id="tagsDisplay"></div>
+                    <input
+                        type="text"
+                        class="tag-input-field"
+                        id="tagInput"
+                        placeholder="Nhập tag và nhấn Enter (tối thiểu 1, tối đa 5)"
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="tag-autocomplete" id="tagAutocomplete" style="display: none;"></div>
+            </div>
+            <div class="tag-counter" id="tagCounter">
+                <span class="tag-counter-text">
+                    <span id="tagCount">0</span>/5 tags
+                </span>
+                <span class="form-help">Nhấn Enter để thêm tag</span>
+            </div>
+            @error('tags')
+                <span class="form-error">{{ $message }}</span>
+            @enderror
+            <input type="hidden" name="tags" id="tagsInput" value="">
+        </div>
+
+        <div class="form-group form-grid-full">
             <label for="content" class="form-label">
                 Nội dung <span class="required">*</span>
             </label>
@@ -199,6 +228,265 @@ document.getElementById('title').addEventListener('input', function(e) {
 
     document.getElementById('slug').value = slug;
 });
+
+// Tag Input Component
+(function() {
+    const MIN_TAGS = 1;
+    const MAX_TAGS = 5;
+    let selectedTags = [];
+    let searchTimeout;
+    let activeIndex = -1;
+    let availableTags = [];
+
+    const tagInput = document.getElementById('tagInput');
+    const tagInputContainer = document.getElementById('tagInputContainer');
+    const tagsDisplay = document.getElementById('tagsDisplay');
+    const tagAutocomplete = document.getElementById('tagAutocomplete');
+    const tagCounter = document.getElementById('tagCounter');
+    const tagCount = document.getElementById('tagCount');
+    const tagsHiddenInput = document.getElementById('tagsInput');
+
+    // Load existing tags
+    const existingTags = @json($postTags);
+    selectedTags = existingTags.map(tag => ({
+        id: tag.id,
+        name: tag.name,
+        slug: tag.slug
+    }));
+    renderTags();
+    updateCounter();
+    updateHiddenInput();
+
+    // Focus container when clicking on it
+    tagInputContainer.addEventListener('click', function() {
+        tagInput.focus();
+    });
+
+    // Handle container focus
+    tagInput.addEventListener('focus', function() {
+        tagInputContainer.classList.add('focused');
+    });
+
+    tagInput.addEventListener('blur', function() {
+        setTimeout(() => {
+            tagInputContainer.classList.remove('focused');
+            hideAutocomplete();
+        }, 200);
+    });
+
+    // Handle input
+    tagInput.addEventListener('input', function(e) {
+        const value = e.target.value.trim();
+
+        clearTimeout(searchTimeout);
+
+        if (value.length > 0) {
+            searchTimeout = setTimeout(() => {
+                searchTags(value);
+            }, 300);
+        } else {
+            hideAutocomplete();
+        }
+    });
+
+    // Handle keyboard events
+    tagInput.addEventListener('keydown', function(e) {
+        const value = this.value.trim();
+
+        if (e.key === 'Enter') {
+            e.preventDefault();
+
+            if (activeIndex >= 0 && availableTags.length > 0) {
+                // Select highlighted item from autocomplete
+                addTag(availableTags[activeIndex]);
+            } else if (value) {
+                // Add tag by name (will be created in DB when post is submitted)
+                addTagByName(value);
+            }
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (availableTags.length > 0) {
+                activeIndex = Math.min(activeIndex + 1, availableTags.length - 1);
+                updateActiveItem();
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (availableTags.length > 0) {
+                activeIndex = Math.max(activeIndex - 1, 0);
+                updateActiveItem();
+            }
+        } else if (e.key === 'Escape') {
+            hideAutocomplete();
+        } else if (e.key === 'Backspace' && !value && selectedTags.length > 0) {
+            const lastTag = selectedTags[selectedTags.length - 1];
+            removeTag(lastTag.id || lastTag.name);
+        }
+    });
+
+    // Search tags from database
+    function searchTags(query) {
+        fetch(`{{ route('admin.tags.search') }}?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                availableTags = data.filter(tag => !selectedTags.find(t => t.name.toLowerCase() === tag.name.toLowerCase()));
+                showAutocomplete(query);
+            })
+            .catch(error => {
+                console.error('Error searching tags:', error);
+            });
+    }
+
+    // Show autocomplete dropdown
+    function showAutocomplete(query) {
+        if (availableTags.length > 0) {
+            tagAutocomplete.innerHTML = availableTags.map((tag, index) => `
+                <div class="tag-autocomplete-item ${index === activeIndex ? 'active' : ''}"
+                     onclick="addTag(${JSON.stringify(tag).replace(/"/g, '&quot;')})">
+                    ${escapeHtml(tag.name)}
+                </div>
+            `).join('');
+            tagAutocomplete.style.display = 'block';
+            activeIndex = -1;
+        } else {
+            hideAutocomplete();
+        }
+    }
+
+    // Hide autocomplete
+    function hideAutocomplete() {
+        tagAutocomplete.style.display = 'none';
+        activeIndex = -1;
+        availableTags = [];
+    }
+
+    // Update active item in autocomplete
+    function updateActiveItem() {
+        const items = tagAutocomplete.querySelectorAll('.tag-autocomplete-item');
+        items.forEach((item, index) => {
+            if (index === activeIndex) {
+                item.classList.add('active');
+                item.scrollIntoView({ block: 'nearest' });
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    // Add existing tag from autocomplete
+    function addTag(tag) {
+        if (selectedTags.length >= MAX_TAGS) {
+            alert(`Bạn chỉ có thể thêm tối đa ${MAX_TAGS} tags!`);
+            return;
+        }
+
+        // Silently ignore if tag already exists (check by name, case-insensitive)
+        if (selectedTags.find(t => t.name.toLowerCase() === tag.name.toLowerCase())) {
+            tagInput.value = '';
+            hideAutocomplete();
+            return;
+        }
+
+        selectedTags.push(tag);
+        renderTags();
+        tagInput.value = '';
+        hideAutocomplete();
+        updateCounter();
+        updateHiddenInput();
+    }
+
+    // Add new tag by name (will be created in DB when post is submitted)
+    function addTagByName(name) {
+        if (selectedTags.length >= MAX_TAGS) {
+            alert(`Bạn chỉ có thể thêm tối đa ${MAX_TAGS} tags!`);
+            return;
+        }
+
+        // Silently ignore if tag with same name already selected (case-insensitive)
+        if (selectedTags.find(t => t.name.toLowerCase() === name.toLowerCase())) {
+            tagInput.value = '';
+            hideAutocomplete();
+            return;
+        }
+
+        // Add tag without ID (will be created during post submission)
+        selectedTags.push({ name: name });
+        renderTags();
+        tagInput.value = '';
+        hideAutocomplete();
+        updateCounter();
+        updateHiddenInput();
+    }
+
+    // Remove tag by ID or name
+    function removeTag(identifier) {
+        selectedTags = selectedTags.filter(t => {
+            if (t.id) {
+                return t.id !== identifier;
+            } else {
+                return t.name !== identifier;
+            }
+        });
+        renderTags();
+        updateCounter();
+        updateHiddenInput();
+    }
+
+    // Render tags display
+    function renderTags() {
+        tagsDisplay.innerHTML = selectedTags.map(tag => {
+            const identifier = tag.id || tag.name;
+            const identifierStr = typeof identifier === 'string' ? `'${escapeHtml(identifier)}'` : identifier;
+            return `
+                <div class="tag-item">
+                    <span class="tag-item-text">${escapeHtml(tag.name)}</span>
+                    <button type="button" class="tag-item-remove" onclick="removeTagById(${identifierStr})">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Update counter
+    function updateCounter() {
+        tagCount.textContent = selectedTags.length;
+
+        tagCounter.classList.remove('warning', 'error');
+        tagInputContainer.classList.remove('error');
+
+        if (selectedTags.length >= MAX_TAGS) {
+            tagCounter.classList.add('error');
+            tagInput.disabled = true;
+        } else {
+            tagInput.disabled = false;
+            if (selectedTags.length === MAX_TAGS - 1) {
+                tagCounter.classList.add('warning');
+            }
+        }
+    }
+
+    // Update hidden input with tag names
+    function updateHiddenInput() {
+        tagsHiddenInput.value = JSON.stringify(selectedTags.map(t => t.name));
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Global function to remove tag (called from onclick)
+    window.removeTagById = function(identifier) {
+        removeTag(identifier);
+    };
+
+    // Make addTag global for onclick
+    window.addTag = addTag;
+})();
 
 // Image upload preview
 function previewImage(input) {

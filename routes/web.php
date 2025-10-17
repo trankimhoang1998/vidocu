@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\LoginController;
 
 // Auth Routes
@@ -47,4 +48,17 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    // Tag Management (Admin Only - Role 0)
+    Route::middleware('role:0')->group(function () {
+        Route::get('/tags', [TagController::class, 'index'])->name('tags');
+        Route::get('/tags/create', [TagController::class, 'create'])->name('tags.create');
+        Route::post('/tags', [TagController::class, 'store'])->name('tags.store');
+        Route::get('/tags/{id}/edit', [TagController::class, 'edit'])->name('tags.edit');
+        Route::put('/tags/{id}', [TagController::class, 'update'])->name('tags.update');
+        Route::delete('/tags/{id}', [TagController::class, 'destroy'])->name('tags.destroy');
+    });
+
+    // Tag API Routes (Admin and User - Role 0,1)
+    Route::get('/tags/search', [TagController::class, 'search'])->name('tags.search');
 });

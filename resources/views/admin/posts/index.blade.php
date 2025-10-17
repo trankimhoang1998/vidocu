@@ -79,6 +79,7 @@
                 <th class="data-table-th">Ảnh</th>
                 <th class="data-table-th">Tiêu đề</th>
                 <th class="data-table-th">Danh mục</th>
+                <th class="data-table-th">Tags</th>
                 <th class="data-table-th">Tác giả</th>
                 <th class="data-table-th">Trạng thái</th>
                 <th class="data-table-th">Thời gian tạo</th>
@@ -107,6 +108,15 @@
                 </td>
                 <td class="data-table-td">{{ $post->title }}</td>
                 <td class="data-table-td">{{ $post->category_name ?? 'N/A' }}</td>
+                <td class="data-table-td">
+                    <div class="post-tags">
+                        @forelse($post->tags as $tag)
+                            <span class="badge badge-primary">{{ $tag->name }}</span>
+                        @empty
+                            <span class="text-muted">Chưa có tag</span>
+                        @endforelse
+                    </div>
+                </td>
                 <td class="data-table-td">{{ $post->author_name ?? 'N/A' }}</td>
                 <td class="data-table-td">
                     <span class="badge {{ $post->status == 1 ? 'badge-success' : 'badge-secondary' }}">
@@ -131,7 +141,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="data-table-td data-table-empty">Chưa có dữ liệu</td>
+                <td colspan="8" class="data-table-td data-table-empty">Chưa có dữ liệu</td>
             </tr>
             @endforelse
         </tbody>

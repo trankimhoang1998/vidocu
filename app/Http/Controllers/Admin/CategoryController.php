@@ -69,6 +69,15 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
+
+            // Kiểm tra xem category có bài viết hay không
+            if ($category->posts()->count() > 0) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không thể xóa danh mục này vì đang có bài viết!'
+                ], 422);
+            }
+
             $category->delete();
 
             return response()->json([

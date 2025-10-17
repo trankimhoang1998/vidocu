@@ -29,7 +29,41 @@ class StorePostRequest extends FormRequest
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'required|exists:categories,id',
             'status' => 'required|in:0,1',
+            'tags' => 'required|json',
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $tags = json_decode($this->input('tags'), true);
+
+            if (!is_array($tags)) {
+                $validator->errors()->add('tags', 'Tags phải là một mảng hợp lệ');
+                return;
+            }
+
+            $tagCount = count($tags);
+
+            if ($tagCount < 1) {
+                $validator->errors()->add('tags', 'Bài viết phải có ít nhất 1 tag');
+            }
+
+            if ($tagCount > 5) {
+                $validator->errors()->add('tags', 'Bài viết không được có quá 5 tags');
+            }
+
+            // Validate each tag name is a non-empty string
+            foreach ($tags as $tagName) {
+                if (!is_string($tagName) || trim($tagName) === '') {
+                    $validator->errors()->add('tags', 'Tên tag không hợp lệ');
+                    break;
+                }
+            }
+        });
     }
 
     /**
@@ -51,6 +85,8 @@ class StorePostRequest extends FormRequest
             'category_id.exists' => 'Danh mục không tồn tại',
             'status.required' => 'Trạng thái là bắt buộc',
             'status.in' => 'Trạng thái không hợp lệ',
+            'tags.required' => 'Tags là bắt buộc',
+            'tags.json' => 'Tags phải ở định dạng JSON hợp lệ',
         ];
     }
 }
