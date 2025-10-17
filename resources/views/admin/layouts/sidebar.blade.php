@@ -9,8 +9,16 @@
                     <span class="menu-text">Dashboard</span>
                 </a>
             </li>
+            <li class="admin-menu-item {{ request()->routeIs('admin.posts*') ? 'active' : '' }}">
+                <a href="{{ route('admin.posts') }}">
+                    <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <span class="menu-text">Bài viết</span>
+                </a>
+            </li>
             @if(auth()->user()->isAdmin())
-            <li class="admin-menu-item {{ request()->routeIs('admin.users') ? 'active' : '' }}">
+            <li class="admin-menu-item {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
                 <a href="{{ route('admin.users') }}">
                     <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -18,7 +26,7 @@
                     <span class="menu-text">Người dùng</span>
                 </a>
             </li>
-            <li class="admin-menu-item {{ request()->routeIs('admin.categories') ? 'active' : '' }}">
+            <li class="admin-menu-item {{ request()->routeIs('admin.categories*') ? 'active' : '' }}">
                 <a href="{{ route('admin.categories') }}">
                     <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>

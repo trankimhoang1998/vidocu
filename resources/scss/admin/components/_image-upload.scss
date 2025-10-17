@@ -1,0 +1,119 @@
+// Image Upload Component
+.image-upload-wrapper {
+    width: 100%;
+}
+
+.image-upload-input {
+    display: none;
+}
+
+.image-preview-container {
+    width: 400px;
+    min-height: 200px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    background: #f9fafb;
+
+    &:hover {
+        border-color: #6366f1;
+        background: #f5f5ff;
+    }
+}
+
+.image-preview-placeholder {
+    text-align: center;
+    padding: 2rem;
+}
+
+.image-preview-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    color: #9ca3af;
+}
+
+.image-preview-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.image-preview-subtext {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.image-preview-img {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.image-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-radius: 0 0 8px 8px;
+}
+
+.image-info-content {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    min-width: 0;
+}
+
+.image-info-icon {
+    display: none;
+}
+
+.image-name {
+    font-size: 0.9rem;
+    color: #ffffff;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.image-remove-btn {
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 6px;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    svg {
+        width: 22px;
+        height: 22px;
+        color: #ffffff;
+        opacity: 0.95;
+    }
+}
