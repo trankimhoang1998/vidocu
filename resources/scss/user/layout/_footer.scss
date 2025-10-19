@@ -1,0 +1,14 @@
+// User Footer - Simple
+
+.user-footer {
+    background: $primary-color;
+    padding: $spacing-md 0;
+    margin-top: auto;
+    text-align: center;
+
+    p {
+        margin: 0;
+        color: $white;
+        font-size: 0.875rem;
+    }
+}

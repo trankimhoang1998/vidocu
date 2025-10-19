@@ -1,0 +1,93 @@
+// Tag Detail Page
+
+.tag-page {
+    padding: $spacing-xl 0;
+    background: $white;
+}
+
+// Tag Header
+.tag-header {
+    max-width: 600px;
+    margin: 0 auto $spacing-xl;
+    text-align: center;
+}
+
+.tag-icon-large {
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-md;
+    background: linear-gradient(135deg, $primary-color, darken($primary-color, 10%));
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $white;
+    box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+}
+
+.tag-title {
+    margin: 0 0 $spacing-md;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $gray-900;
+
+    @media (max-width: $breakpoint-sm) {
+        font-size: 1.75rem;
+    }
+}
+
+.tag-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    color: $gray-500;
+    font-size: 0.875rem;
+}
+
+.tag-count {
+    padding: $spacing-xs $spacing-sm;
+    background: $gray-100;
+    border-radius: $border-radius;
+    font-weight: 600;
+}
+
+// Back Links
+.back-links {
+    max-width: 600px;
+    margin: $spacing-xl auto 0;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $gray-200;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        color: $gray-600;
+        text-decoration: none;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        transition: all $transition-speed;
+
+        &:hover {
+            color: $primary-color;
+            transform: translateX(-4px);
+        }
+    }
+
+    .separator {
+        color: $gray-300;
+    }
+}
+
+// Empty State
+.empty-state {
+    text-align: center;
+    padding: $spacing-xl 0;
+    color: $gray-500;
+}

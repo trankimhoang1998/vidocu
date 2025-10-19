@@ -1,0 +1,108 @@
+// Tags Page
+
+.tags-page {
+    min-height: calc(100vh - 200px);
+    padding: $spacing-xl 0;
+    background: $white;
+}
+
+// Tags Grid
+.tags-grid {
+    max-width: 600px;
+    margin: 0 auto $spacing-xl;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: $spacing-sm;
+
+    @media (max-width: $breakpoint-sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+// Tag Card
+.tag-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    padding: $spacing-md;
+    background: $white;
+    border: 1px solid $gray-200;
+    border-radius: $border-radius;
+    text-decoration: none;
+    text-align: center;
+    transition: all $transition-speed;
+
+    &:hover {
+        border-color: $primary-color;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+        .tag-icon {
+            background: $primary-color;
+            color: $white;
+        }
+
+        .tag-name {
+            color: $primary-color;
+        }
+    }
+}
+
+.tag-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-xs;
+    background: $gray-100;
+    border-radius: 50%;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $gray-600;
+    transition: all $transition-speed;
+}
+
+.tag-name {
+    margin: 0 0 2px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $gray-900;
+    transition: color $transition-speed;
+}
+
+.tag-count {
+    margin: 0;
+    font-size: 0.75rem;
+    color: $gray-500;
+}
+
+// Empty State
+.empty-state {
+    text-align: center;
+    padding: $spacing-xl 0;
+    color: $gray-500;
+}
+
+// Back Link
+.back-link {
+    max-width: 600px;
+    margin: $spacing-xl auto 0;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $gray-200;
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        color: $gray-600;
+        text-decoration: none;
+        font-size: 0.9375rem;
+        transition: color $transition-speed;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+}

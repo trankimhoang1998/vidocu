@@ -16,6 +16,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // User Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/t', [HomeController::class, 'tags'])->name('tags');
+Route::get('/p/{slug}', [HomeController::class, 'show'])->name('post.detail');
+Route::get('/t/{slug}', [HomeController::class, 'tag'])->name('tag.show');
 
 // Admin Routes (prefix: /admin)
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {

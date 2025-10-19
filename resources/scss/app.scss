@@ -16,10 +16,12 @@
 // User Layout
 @import 'user/layout/header';
 @import 'user/layout/footer';
-@import 'user/layout/sidebar';
 
 // User Pages
 @import 'user/pages/home';
+@import 'user/pages/detail';
+@import 'user/pages/tags';
+@import 'user/pages/tag';
 
 // ===== ADMIN SECTION =====
 // Admin Components

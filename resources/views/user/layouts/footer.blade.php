@@ -1,5 +1,5 @@
-<footer class="footer">
+<footer class="user-footer">
     <div class="container">
-        <p>&copy; {{ date('Y') }} Vidocu. All rights reserved.</p>
+        <p>Copyright {{ date('Y') }} © Vidocu.com</p>
     </div>
 </footer>
