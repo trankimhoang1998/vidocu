@@ -36,7 +36,18 @@ class HomeController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        return view('user.detail', compact('post'));
+        // Get related posts based on tags
+        $relatedPosts = Post::with(['user', 'category', 'tags'])
+            ->where('id', '!=', $post->id)
+            ->where('status', 1)
+            ->whereHas('tags', function($query) use ($post) {
+                $query->whereIn('tags.id', $post->tags->pluck('id'));
+            })
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+
+        return view('user.detail', compact('post', 'relatedPosts'));
     }
 
     public function tags()

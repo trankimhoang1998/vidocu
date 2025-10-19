@@ -1,0 +1,119 @@
+// Related Posts Section
+
+.related-posts {
+    max-width: 600px;
+    margin: $spacing-xl auto;
+    padding: $spacing-xl 0;
+    border-top: 1px solid $gray-200;
+}
+
+.related-posts-title {
+    margin: 0 0 $spacing-lg;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $gray-900;
+}
+
+.related-posts-grid {
+    display: grid;
+    gap: $spacing-lg;
+
+    @media (min-width: $breakpoint-md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.related-post-card {
+    display: flex;
+    flex-direction: column;
+    background: $white;
+    border: 1px solid $gray-200;
+    border-radius: $border-radius;
+    overflow: hidden;
+    transition: all $transition-speed;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+
+        .related-post-title {
+            color: $primary-color;
+        }
+    }
+}
+
+.related-post-thumbnail {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: $gray-100;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform $transition-speed;
+    }
+
+    &:hover img {
+        transform: scale(1.05);
+    }
+}
+
+.related-post-content {
+    padding: $spacing-md;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.related-post-title {
+    margin: 0 0 $spacing-sm;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: $gray-900;
+    text-decoration: none;
+    transition: color $transition-speed;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.related-post-excerpt {
+    margin: 0 0 $spacing-sm;
+    font-size: 0.875rem;
+    color: $gray-600;
+    line-height: 1.5;
+    flex: 1;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.related-post-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-xs;
+    font-size: 0.875rem;
+    color: $gray-500;
+    margin-top: auto;
+
+    .post-author,
+    .post-date,
+    .post-reading-time {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+    }
+
+    svg {
+        flex-shrink: 0;
+    }
+}

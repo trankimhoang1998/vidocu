@@ -2,6 +2,34 @@
 
 @section('title', 'Thẻ')
 
+@push('seo')
+@php
+    $tags = \App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->limit(20)->get();
+    $tagNames = $tags->pluck('name')->join(', ');
+@endphp
+@include('user.partials.seo', [
+    'title' => 'Danh sách Tags - Vidocu',
+    'description' => 'Khám phá tất cả các chủ đề tài liệu học tập được phân loại theo tags. Tìm kiếm tài liệu nhanh chóng qua hệ thống phân loại chi tiết.',
+    'keywords' => $tagNames . ', tags, phân loại tài liệu, chủ đề học tập, vidocu',
+    'canonical' => route('tags'),
+    'type' => 'website',
+    'image' => asset('logo.svg'),
+    'imageAlt' => 'Danh sách Tags - Vidocu',
+    'jsonLd' => [
+        '@context' => 'https://schema.org',
+        '@type' => 'CollectionPage',
+        'name' => 'Danh sách Tags',
+        'description' => 'Tất cả các tags tài liệu học tập trên Vidocu',
+        'url' => route('tags'),
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'Vidocu',
+            'url' => url('/')
+        ]
+    ]
+])
+@endpush
+
 @section('content')
 <div class="tags-page">
     <div class="container">

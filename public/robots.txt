@@ -1,2 +1,15 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap
+Sitemap: https://vidocu.com/sitemap.xml
+
+# Disallow admin area
+Disallow: /admin/
+Disallow: /login
+
+# Allow CSS, JS, and images
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /storage/

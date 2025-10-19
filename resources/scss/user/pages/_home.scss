@@ -71,20 +71,23 @@
 .post-meta {
     display: flex;
     align-items: center;
-    gap: $spacing-xs;
+    gap: $spacing-md;
     color: $gray-500;
     font-size: 0.875rem;
+
+    .post-author,
+    .post-date,
+    .post-reading-time {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+    }
 
     svg {
         flex-shrink: 0;
     }
 
-    .post-date {
-        text-transform: uppercase;
-    }
-
     .post-author {
-        text-transform: uppercase;
         font-weight: 600;
     }
 }

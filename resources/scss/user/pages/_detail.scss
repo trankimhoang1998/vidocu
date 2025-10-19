@@ -31,10 +31,18 @@
     .post-meta {
         display: flex;
         align-items: center;
-        gap: $spacing-xs;
+        gap: $spacing-md;
         margin-bottom: $spacing-md;
         color: $gray-500;
         font-size: 0.875rem;
+
+        .post-author,
+        .post-date,
+        .post-reading-time {
+            display: flex;
+            align-items: center;
+            gap: $spacing-xs;
+        }
 
         svg {
             flex-shrink: 0;
@@ -42,11 +50,6 @@
 
         .post-author {
             font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .post-date {
-            color: $gray-500;
         }
     }
 }

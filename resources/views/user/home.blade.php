@@ -2,6 +2,35 @@
 
 @section('title', 'Trang chủ')
 
+@push('seo')
+@include('user.partials.seo', [
+    'title' => 'Vidocu - Chia sẻ tài liệu học tập miễn phí',
+    'description' => 'Nền tảng chia sẻ tài liệu học tập miễn phí với hàng ngàn tài liệu chất lượng cao. Tìm kiếm, tải xuống và chia sẻ tài liệu học tập dễ dàng.',
+    'keywords' => 'tài liệu học tập, chia sẻ tài liệu, tài liệu miễn phí, học online, vidocu, tài liệu sinh viên, tài liệu học sinh',
+    'canonical' => route('home'),
+    'type' => 'website',
+    'image' => asset('logo.svg'),
+    'imageAlt' => 'Vidocu - Nền tảng chia sẻ tài liệu học tập',
+    'jsonLd' => [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => 'Vidocu',
+        'url' => url('/'),
+        'description' => 'Nền tảng chia sẻ tài liệu học tập miễn phí',
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'Vidocu',
+            'url' => url('/')
+        ],
+        'potentialAction' => [
+            '@type' => 'SearchAction',
+            'target' => url('/').'?q={search_term_string}',
+            'query-input' => 'required name=search_term_string'
+        ]
+    ]
+])
+@endpush
+
 @section('content')
 <div class="home-page">
     <div class="container">

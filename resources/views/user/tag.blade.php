@@ -2,9 +2,48 @@
 
 @section('title', $tag->name)
 
+@push('seo')
+@include('user.partials.seo', [
+    'title' => $tag->name . ' - Vidocu',
+    'description' => 'Khám phá ' . $documents->total() . ' tài liệu học tập về ' . $tag->name . '. Tải về và chia sẻ tài liệu miễn phí trên Vidocu.',
+    'keywords' => $tag->name . ', tài liệu ' . strtolower($tag->name) . ', học tập, vidocu',
+    'canonical' => route('tag.show', $tag->slug),
+    'type' => 'website',
+    'image' => asset('logo.svg'),
+    'imageAlt' => $tag->name . ' - Tài liệu học tập Vidocu',
+    'jsonLd' => [
+        '@context' => 'https://schema.org',
+        '@type' => 'CollectionPage',
+        'name' => $tag->name,
+        'description' => 'Tài liệu học tập về ' . $tag->name,
+        'url' => route('tag.show', $tag->slug),
+        'numberOfItems' => $documents->total(),
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'Vidocu',
+            'url' => url('/')
+        ]
+    ]
+])
+@endpush
+
 @section('content')
 <div class="tag-page">
     <div class="container">
+        {{-- Breadcrumbs --}}
+        @include('user.partials.breadcrumbs', [
+            'breadcrumbs' => [
+                [
+                    'name' => 'Tags',
+                    'url' => route('tags')
+                ],
+                [
+                    'name' => $tag->name,
+                    'url' => route('tag.show', $tag->slug)
+                ]
+            ]
+        ])
+
         {{-- Tag Header --}}
         <div class="tag-header">
             <div class="tag-icon-large">#</div>
