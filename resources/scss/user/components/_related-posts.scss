@@ -24,8 +24,6 @@
 }
 
 .related-post-card {
-    display: flex;
-    flex-direction: column;
     background: $white;
     border: 1px solid $gray-200;
     border-radius: $border-radius;
@@ -39,7 +37,19 @@
         .related-post-title {
             color: $primary-color;
         }
+
+        .related-post-thumbnail img {
+            transform: scale(1.05);
+        }
     }
+}
+
+.related-post-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
 }
 
 .related-post-thumbnail {
@@ -54,10 +64,6 @@
         height: 100%;
         object-fit: cover;
         transition: transform $transition-speed;
-    }
-
-    &:hover img {
-        transform: scale(1.05);
     }
 }
 

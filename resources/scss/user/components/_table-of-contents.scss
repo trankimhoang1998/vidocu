@@ -1,0 +1,155 @@
+// Table of Contents
+
+.table-of-contents {
+    position: fixed;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%) translateX(-20px);
+    width: 320px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    padding: $spacing-lg;
+    z-index: 1000;
+    background: $white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    border: 1px solid $gray-200;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.2s ease;
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(-50%) translateX(0);
+    }
+
+    @media (max-width: $breakpoint-md) {
+        display: none !important;
+    }
+}
+
+// TOC Button (Left Side)
+.toc-floating-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    background: $white;
+    color: $gray-600;
+    border: 1px solid $gray-200;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    z-index: 999;
+    transition: background $transition-speed, box-shadow $transition-speed;
+    padding: 0;
+
+    &:hover {
+        background: $gray-50;
+        box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    }
+
+    svg {
+        width: 20px;
+
+        .toc-line {
+            transition: all 0.3s ease;
+        }
+    }
+
+    @media (max-width: $breakpoint-md) {
+        display: none !important;
+    }
+}
+
+.toc-header {
+    margin-bottom: $spacing-md;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1px solid $gray-200;
+
+    h3 {
+        margin: 0;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: $gray-500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-item {
+    margin: 0;
+}
+
+.toc-link {
+    display: block;
+    padding: $spacing-xs $spacing-sm;
+    color: $gray-700;
+    text-decoration: none;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    transition: all $transition-speed;
+    border-radius: 4px;
+
+    &:hover {
+        background: $gray-50;
+        color: $gray-900;
+    }
+
+    &.active {
+        background: $primary-color;
+        color: $white;
+        font-weight: 500;
+    }
+}
+
+// Heading levels indentation
+.toc-h2 .toc-link {
+    font-weight: 500;
+}
+
+.toc-h3 .toc-link {
+    padding-left: $spacing-lg;
+    font-size: 0.8125rem;
+    font-weight: 400;
+}
+
+.toc-h4 .toc-link {
+    padding-left: $spacing-xl;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: $gray-600;
+}
+
+// Smooth scrollbar
+.table-of-contents::-webkit-scrollbar {
+    width: 4px;
+}
+
+.table-of-contents::-webkit-scrollbar-track {
+    background: $gray-100;
+    border-radius: 2px;
+}
+
+.table-of-contents::-webkit-scrollbar-thumb {
+    background: $gray-300;
+    border-radius: 2px;
+
+    &:hover {
+        background: $gray-400;
+    }
+}
