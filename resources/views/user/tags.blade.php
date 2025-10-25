@@ -13,7 +13,7 @@
     'keywords' => $tagNames . ', tags, phân loại tài liệu, chủ đề học tập, vidocu',
     'canonical' => route('tags'),
     'type' => 'website',
-    'image' => asset('logo.svg'),
+    'image' => asset('vidocu.png'),
     'imageAlt' => 'Danh sách Tags - Vidocu',
     'jsonLd' => [
         '@context' => 'https://schema.org',

@@ -9,7 +9,7 @@
     'keywords' => 'tài liệu học tập, chia sẻ tài liệu, tài liệu miễn phí, học online, vidocu, tài liệu sinh viên, tài liệu học sinh',
     'canonical' => route('home'),
     'type' => 'website',
-    'image' => asset('logo.svg'),
+    'image' => asset('vidocu.png'),
     'imageAlt' => 'Vidocu - Nền tảng chia sẻ tài liệu học tập',
     'jsonLd' => [
         '@context' => 'https://schema.org',

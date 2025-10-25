@@ -9,7 +9,7 @@
     'keywords' => $tag->name . ', tài liệu ' . strtolower($tag->name) . ', học tập, vidocu',
     'canonical' => route('tag.show', $tag->slug),
     'type' => 'website',
-    'image' => asset('logo.svg'),
+    'image' => asset('vidocu.png'),
     'imageAlt' => $tag->name . ' - Tài liệu học tập Vidocu',
     'jsonLd' => [
         '@context' => 'https://schema.org',

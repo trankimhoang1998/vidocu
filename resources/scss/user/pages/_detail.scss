@@ -6,7 +6,7 @@
 }
 
 .post-detail {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -49,6 +49,7 @@
 
         @media (max-width: $breakpoint-sm) {
             flex-wrap: wrap;
+            row-gap: 4px;
         }
 
         .post-author,
@@ -57,10 +58,11 @@
             display: flex;
             align-items: center;
             gap: $spacing-xs;
-        }
 
-        svg {
-            flex-shrink: 0;
+            svg {
+                color: $primary-color;
+                flex-shrink: 0;
+            }
         }
 
         .post-author {
@@ -266,18 +268,21 @@
         background: $gray-900;
         border-radius: $border-radius;
         overflow-x: auto;
+        color: #f8f8f2;
+        line-height: 1.6;
 
         code {
             padding: 0;
             background: transparent;
-            color: $white;
+            color: inherit;
+            font-size: 0.95em;
         }
     }
 }
 
 // Post Detail Tags
 .post-detail-tags {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto $spacing-xl;
     display: flex;
     flex-wrap: wrap;
@@ -319,7 +324,7 @@
 
 // Back Link
 .back-link {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     padding-top: $spacing-lg;
     border-top: 1px solid $gray-200;
@@ -396,5 +401,57 @@
     svg {
         width: 16px;
         height: 16px;
+    }
+}
+
+// Back to Top Button
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: $primary-color;
+    color: $white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    &:hover {
+        background: darken($primary-color, 10%);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
     }
 }

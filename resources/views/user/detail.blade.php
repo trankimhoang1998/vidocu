@@ -51,7 +51,7 @@
 
         <div class="detail-wrapper">
             {{-- Table of Contents Sidebar --}}
-            @include('user.partials.table-of-contents')
+            {{-- @include('user.partials.table-of-contents') --}}
 
             <article class="post-detail">
                 {{-- Post Header --}}
@@ -177,6 +177,13 @@
     </button>
 </div>
 
+{{-- Back to Top Button --}}
+<button type="button" class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+    </svg>
+</button>
+
 <script>
 // Image modal functions
 function openImageModal(imageSrc) {
@@ -293,5 +300,23 @@ function closeToast() {
         clearTimeout(toastTimeout);
     }
 }
+
+// Back to top functions
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide back to top button
+window.addEventListener('scroll', function() {
+    const backToTopBtn = document.getElementById('backToTop');
+    if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+    } else {
+        backToTopBtn.classList.remove('show');
+    }
+});
 </script>
 @endsection
