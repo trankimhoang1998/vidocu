@@ -1,25 +1,25 @@
 @extends('user.layouts.app')
 
-@section('title', 'Thẻ')
+@section('title', 'Tác giả')
 
 @push('seo')
 @php
-    $tagNames = $tags->take(20)->pluck('name')->join(', ');
+    $authorNames = $authors->take(20)->pluck('name')->join(', ');
 @endphp
 @include('user.partials.seo', [
-    'title' => 'Danh sách Tags - Vidocu',
-    'description' => 'Khám phá tất cả các chủ đề tài liệu học tập được phân loại theo tags. Tìm kiếm tài liệu nhanh chóng qua hệ thống phân loại chi tiết.',
-    'keywords' => $tagNames . ', tags, phân loại tài liệu, chủ đề học tập, vidocu',
-    'canonical' => route('tags'),
+    'title' => 'Danh sách Tác giả - Vidocu',
+    'description' => 'Khám phá tất cả các tác giả đang chia sẻ tài liệu học tập trên Vidocu. Tìm kiếm tài liệu theo tác giả yêu thích của bạn.',
+    'keywords' => $authorNames . ', tác giả, người viết, vidocu',
+    'canonical' => route('authors'),
     'type' => 'website',
     'image' => asset('vidocu.png'),
-    'imageAlt' => 'Danh sách Tags - Vidocu',
+    'imageAlt' => 'Danh sách Tác giả - Vidocu',
     'jsonLd' => [
         '@context' => 'https://schema.org',
         '@type' => 'CollectionPage',
-        'name' => 'Danh sách Tags',
-        'description' => 'Tất cả các tags tài liệu học tập trên Vidocu',
-        'url' => route('tags'),
+        'name' => 'Danh sách Tác giả',
+        'description' => 'Tất cả các tác giả tài liệu học tập trên Vidocu',
+        'url' => route('authors'),
         'publisher' => [
             '@type' => 'Organization',
             'name' => 'Vidocu',
@@ -30,21 +30,21 @@
 @endpush
 
 @section('content')
-<div class="tags-page">
+<div class="authors-page">
     <div class="container">
-        <div class="tags-grid" id="tags-grid">
-            @include('user.partials.tag-card', ['tags' => $tags])
+        <div class="authors-grid" id="authors-grid">
+            @include('user.partials.author-card', ['authors' => $authors])
         </div>
 
-        @if($tags->hasMorePages())
+        @if($authors->hasMorePages())
         <div class="loading-trigger" id="loading-trigger">
             <div class="loading-spinner">Đang tải...</div>
         </div>
         @endif
 
-        @if($tags->isEmpty())
+        @if($authors->isEmpty())
         <div class="empty-state">
-            <p>Chưa có thẻ nào.</p>
+            <p>Chưa có tác giả nào.</p>
         </div>
         @endif
 
@@ -57,7 +57,7 @@
 <script>
 let page = 1;
 let loading = false;
-let hasMorePages = {{ $tags->hasMorePages() ? 'true' : 'false' }};
+let hasMorePages = {{ $authors->hasMorePages() ? 'true' : 'false' }};
 
 const loadMore = () => {
     if (loading || !hasMorePages) return;
@@ -65,15 +65,15 @@ const loadMore = () => {
     loading = true;
     page++;
 
-    fetch(`{{ route('tags') }}?page=${page}`, {
+    fetch(`{{ route('authors') }}?page=${page}`, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest'
         }
     })
     .then(response => response.json())
     .then(data => {
-        const tagsGrid = document.getElementById('tags-grid');
-        tagsGrid.insertAdjacentHTML('beforeend', data.html);
+        const authorsGrid = document.getElementById('authors-grid');
+        authorsGrid.insertAdjacentHTML('beforeend', data.html);
 
         hasMorePages = data.hasMorePages;
         loading = false;

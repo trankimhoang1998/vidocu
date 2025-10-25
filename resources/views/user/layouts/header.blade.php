@@ -32,6 +32,11 @@
                         TAGS
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('authors') }}" class="{{ request()->routeIs('authors') || request()->routeIs('author.show') ? 'active' : '' }}">
+                        TÁC GIẢ
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
